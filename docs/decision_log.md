@@ -49,4 +49,45 @@ Each entry records what I decided, what else I considered, why, and the trade-of
 **Status:** Decided
 **Options considered:** full 18.3M rows, a date-range slice, or a random sample
 **Decision:** Take a 1% random sample of complaints from 2023 onward (151,161 rows) using `random_state=42`, keeping only the original 15 columns. Run the final pipeline on the full data.
-**Why:** The full file is too large for my computer and for the usage limits of Databricks Free Edition. A date-range slice from 2023 still left 15.1M rows, so it was not small enough. The seed makes the sample reproducible, and keeping only the original columns keeps the bronze
+**Why:** The full file is too large for my computer and for the usage limits of Databricks Free Edition. A date-range slice from 2023 still left 15.1M rows, so it was not small enough. The seed makes the sample reproducible, and keeping only the original columns keeps the bronze layer raw.
+**Trade-off:** A sample can miss rare events, such as late responses (about 0.6% of complaints) or small companies. Final results will be checked on the full data.
+
+---
+
+## 6. Complaint ID is the key; the grain is one row per complaint
+**Date:** 2026-10-13
+**Status:** Decided
+**Options considered:** use Complaint ID, or build a key from several columns
+**Decision:** Use Complaint ID as the key of the fact table.
+**Why:** The uniqueness check found 0 duplicate complaint IDs in 18.3M rows.
+**Trade-off:** If a future data refresh contains duplicates, I need to re-run the check. It will be added to the data quality tests.
+
+---
+
+## 7. Flag date anomalies instead of deleting them
+**Date:** 2026-10-13
+**Status:** Decided
+**Options considered:** delete the rows, correct the dates, or keep and flag them
+**Decision:** Keep the rows and add a flag column (for example, `is_date_anomaly`). Exclude flagged rows only from days-to-company calculations.
+**Why:** 7,050 complaints (about 0.04%), all from 2011 to 2014, have a sent date exactly 1 day before the received date. They do not affect analysis from 2015 onward, and deleting them would change complaint counts.
+**Trade-off:** I do not know the cause, so I am not correcting the dates.
+
+---
+
+## 8. Describe the credit reporting surge without explaining its cause
+**Date:** 2026-10-13
+**Status:** Decided
+**Options considered:** propose a cause, or describe the pattern only
+**Decision:** Report what the data shows and make no causal claim.
+**Why:** Monthly credit reporting complaints grew from about 181,000 (May 2024) to about 639,000 (September 2026), with a visible step from 267,923 (December 2024) to 365,867 (January 2025), about 37%. The data has no field that explains why.
+**Trade-off:** The story is less dramatic, but it is defensible in an interview.
+
+---
+
+## 9. Submission channel does not separate credit reporting from other products
+**Date:** 2026-10-13
+**Status:** Decided
+**Options considered:** use channel as an explanation of the surge, or rule it out
+**Decision:** Do not use submission channel as an explanation.
+**Why:** Since 2022, about 99.6% of credit reporting complaints and 93.6% of other complaints came through the web.
+**Trade-off:** This answers part of business question 6 and leaves other patterns (company, state) to check.
