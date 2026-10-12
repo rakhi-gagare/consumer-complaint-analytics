@@ -34,9 +34,13 @@ Each entry: what I decided, what else I considered, why, and the trade-off.
 **-** About 99.6% of credit reporting complaints since 2022 were filed through the web, compared with 93.6% for other products, so submission channel does not distinguish them.
 
 **1.** Complaint ID is the key. No duplicates were found, so the fact table grain is one row per complaint.
+
 **2.** Date anomalies are flagged, not deleted. 7,050 complaints (about 0.04%) have a sent date earlier than the received date. They stay in the data and are excluded only from days-to-company calculations.
+
 **3.** The latest partial month is excluded from trend charts and rates.
+
 **4.** Credit reporting volume grew steadily and accelerated from 2024, with a visible step from December 2024 to January 2025. This is described, not explained.
+
 **5.** Submission channel does not separate credit reporting from other products, because about 99.6% of credit reporting complaints and 93.6% of other complaints came through the web.
 
 ### 7,050 complaints (about 0.04%), all from 2011 to 2014, have a sent date exactly 1 day before the received date. They are kept and flagged, and excluded from days-to-company calculations. They don’t affect analysis from 2015 onward.
