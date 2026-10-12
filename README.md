@@ -66,6 +66,42 @@ The raw data is not stored in this repository. Download it from the source above
 
 ---
 
+## Exploratory Data Analysis (EDA) Summary
+
+**Phase:** Data Understanding (CRISP-ML(Q)). Complete.
+
+EDA was done in Python (pandas) on the full dataset of 18,329,250 complaints. Checks covered data profiling, missing values, frequency analysis, trend analysis, and data quality.
+
+### Key Findings
+
+| Finding | Evidence |
+|---|---|
+| Large, growing dataset | 18.3M rows, with yearly complaints rising from 0.8M (2022) to 5.4M (2025) |
+| Credit reporting dominates | About 82% of all complaints, and about 91% of 2026 complaints so far |
+| Three companies dominate credit reporting | TransUnion, Equifax, and Experian hold about 94% of credit reporting complaints |
+| Almost all complaints are timely | About 99.4% answered on time, so response timeliness doesn't separate companies |
+| Submission channel does not separate the groups | About 99.6% of credit reporting and 93.6% of other complaints were filed via the web (2022 onward) |
+| Complaint IDs are unique | 0 duplicates, so one row equals one complaint |
+| Minor date anomaly | 7,050 complaints (about 0.04%), all from 2011 to 2014, have a sent date exactly 1 day before the received date |
+| Product names need standardizing | Several labels refer to the same product (for example, three "credit reporting" labels) |
+| Many empty fields | Tags is about 95% empty, and Company public response is about 45% empty |
+
+### Trend Observations
+- Monthly credit reporting complaints rose from about 181,000 (May 2024) to about 639,000 (September 2026), roughly 3.5 times higher.
+- There is a visible step between December 2024 (about 268,000) and January 2025 (about 366,000), a rise of about 37% in one month.
+- October 2026 is a partial month (data through 10 October), so it is excluded from trends and rates.
+- These patterns are described, not explained. The data does not show the cause.
+
+### Decisions Made From EDA
+1. The main outcome metric is the relief rate, not timely response.
+2. Credit reporting is analyzed separately from other products.
+3. A 1% random sample from 2023 onward (about 151,000 rows) is used for development, and the full dataset for the final run.
+4. "In progress" complaints and the latest weeks are excluded from outcome rates.
+5. Date anomalies are flagged, not deleted, and excluded only from days-to-company calculations.
+
+See [docs/decision_log.md](docs/decision_log.md) for the full reasoning.
+
+
 ## Planned Approach
 
 | Stage | What | Tools |
