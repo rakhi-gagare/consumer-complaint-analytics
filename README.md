@@ -142,5 +142,5 @@ Key design decisions and the reasoning behind them are recorded in [docs/decisio
 
 ## Author
 
-**Rakhi Gagare**, Data Analyst
+**Rakhi Giridhar Gagare**, Data Analyst
 https://www.linkedin.com/in/rakhi-gagare-045094234/?isSelfProfile=true | rakhigagare105@gmail.com
