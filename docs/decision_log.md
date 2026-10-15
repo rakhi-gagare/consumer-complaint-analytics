@@ -91,3 +91,11 @@ Each entry records what I decided, what else I considered, why, and the trade-of
 **Decision:** Do not use submission channel as an explanation.
 **Why:** Since 2022, about 99.6% of credit reporting complaints and 93.6% of other complaints came through the web.
 **Trade-off:** This answers part of business question 6 and leaves other patterns (company, state) to check.
+
+## 10. Bronze keeps raw values, with renamed columns and two bookkeeping columns
+**Date:** 2026-10-15
+**Status:** Decided
+**Options considered:** infer column types, or read everything as text
+Decision: read all columns as text, rename columns to snake_case, and add _source_file and _loaded_at
+**Why:** type guessing can silently change values, and Delta tables don’t accept spaces in column names by default
+**Trade-off:** types must be converted in silver
