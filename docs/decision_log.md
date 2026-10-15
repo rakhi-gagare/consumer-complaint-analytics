@@ -99,3 +99,4 @@ Each entry records what I decided, what else I considered, why, and the trade-of
 Decision: read all columns as text, rename columns to snake_case, and add _source_file and _loaded_at
 **Why:** type guessing can silently change values, and Delta tables don’t accept spaces in column names by default
 **Trade-off:** types must be converted in silver
+**Reconciliation passed:** 151,161 rows, and null counts per column match the source file exactly.
