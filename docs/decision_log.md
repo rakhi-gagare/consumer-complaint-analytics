@@ -25,12 +25,13 @@ Each entry records what I decided, what else I considered, why, and the trade-of
 ---
 
 ## 3. Standardize product names in the silver layer
-**Date:** 2026-10-13
-**Status:** To confirm
+**Date:** Confirmed for 2017, data-supported for 2023
+**Status:** To confirm 
 **Options considered:** keep original names, or map renamed products to one standard name
 **Decision:** Map renamed products to one standard name (for example, the three "Credit reporting" variants) and keep the original column too.
-**Why:** The same product appears under several names over time.
-**Trade-off:** A wrong mapping would mix different products. I will confirm the renames in the CFPB field reference before merging.
+**Why:** The CFPB form change of 24 April 2017 regrouped the products. The 2023 change appears in the data only.
+**Trade-off:** Regrouped categories aren’t always one-to-one, so the mapping is a judgment call and is documented.
+**Narrative text is not used,** because the CFPB removed narratives in September 2026.
 
 ---
 
