@@ -101,3 +101,11 @@ Decision: read all columns as text, rename columns to snake_case, and add _sourc
 **Why:** type guessing can silently change values, and Delta tables don’t accept spaces in column names by default
 **Trade-off:** types must be converted in silver
 **Reconciliation passed:** 151,161 rows, and null counts per column match the source file exactly.
+
+## 11. Standardize product names with a mapping table
+**Date:** 2026-10-17
+**Status:** Decided (2017 changes documented by CFPB; 2023 changes supported by data only)
+**Options considered:** (A) one family group, (B) keep original names separate
+**Decision:** Keep the original `product` column, and add a `product_group` column from a lookup table (`map_product`) that stores the original name, the group, the evidence level, and a note.
+**Why:** The CFPB form changed in April 2017, and the names in the data switch on matching dates, so charts on raw names show false drops to zero. The original column is kept, so nothing is lost.
+**Trade-off:** Grouping loses the credit card versus prepaid split for 2017 to 2023. "Consumer Loan" and "Other financial service" have no clear successor and stay as their own groups instead of being forced into another one.
